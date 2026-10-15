@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/docs/" />
+  <Folder Name="/src/">
+    <Project Path="Flashcards.Api/Flashcards.Api.csproj" />
+    <Project Path="Flashcards.Application/Flashcards.Application.csproj" />
+    <Project Path="Flashcards.Auth/Flashcards.Auth.csproj" />
+    <Project Path="Flashcards.Contracts/Flashcards.Contracts.csproj" />
+    <Project Path="Flashcards.Domain/Flashcards.Domain.csproj" />
+    <Project Path="Flashcards.Infrastructure/Flashcards.Infrastructure.csproj" />
+    <Project Path="Flashcards.Web/Flashcards.Web.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="Flashcards.Api.IntegrationTests/Flashcards.Api.IntegrationTests.csproj" />
+    <Project Path="Flashcards.Application.Tests/Flashcards.Application.Tests.csproj" />
+    <Project Path="Flashcards.Domain.Tests/Flashcards.Domain.Tests.csproj" />
+  </Folder>
+</Solution>
