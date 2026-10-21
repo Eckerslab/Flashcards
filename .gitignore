@@ -509,3 +509,5 @@ docs/**/*.bak
 docs/**/*.lck
 docs/**/*.vpp~
 docs/**/.vp/
+*.bak_000f
+*.bak_001d
