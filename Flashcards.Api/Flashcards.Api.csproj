@@ -10,4 +10,9 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.11" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Flashcards.Application\Flashcards.Application.csproj" />
+    <ProjectReference Include="..\Flashcards.Contracts\Flashcards.Contracts.csproj" />
+  </ItemGroup>
+
 </Project>

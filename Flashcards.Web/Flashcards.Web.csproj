@@ -7,4 +7,8 @@
     <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Flashcards.Contracts\Flashcards.Contracts.csproj" />
+  </ItemGroup>
+
 </Project>
