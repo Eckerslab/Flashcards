@@ -485,7 +485,7 @@ $RECYCLE.BIN/
 .env
 .env.*
 !.env.example
-*.pem
+*.pemn
 *.pfx
 *.p12
 *.key
@@ -500,3 +500,12 @@ appsettings.Production.json
 *.db-wal
 *.sqlite
 *.sqlite3
+
+
+# --- Visual Paradigm ---
+# Backups und Sperrdateien
+docs/**/*.vpp.bak
+docs/**/*.bak
+docs/**/*.lck
+docs/**/*.vpp~
+docs/**/.vp/
