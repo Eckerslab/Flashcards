@@ -10,9 +10,9 @@ namespace Flashcards.Domain.Model
     public class FlashcardModel : BaseModel 
     {
         public Guid BoxId { get; set; }
-        
-        public string Question { get; set; }
-        public string Answer { get; set; }
+
+        public string Question { get; set; } = string.Empty;
+        public string Answer { get; set; } = string.Empty;
 
         public int Level { get; set; }
         

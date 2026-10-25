@@ -8,11 +8,16 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Flashcards.Application\Flashcards.Application.csproj" />
     <ProjectReference Include="..\Flashcards.Contracts\Flashcards.Contracts.csproj" />
+    <ProjectReference Include="..\Flashcards.Infrastructure\Flashcards.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
