@@ -485,7 +485,7 @@ $RECYCLE.BIN/
 .env
 .env.*
 !.env.example
-*.pemn
+*.pem
 *.pfx
 *.p12
 *.key
