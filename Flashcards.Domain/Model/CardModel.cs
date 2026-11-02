@@ -3,7 +3,7 @@
 /// <summary>
 ///     Represents a flashcard entity within the domain.
 /// </summary>
-public class FlashcardModel : BaseModel
+public class CardModel : BaseModel
 {
     public Guid BoxId { get; set; }
 

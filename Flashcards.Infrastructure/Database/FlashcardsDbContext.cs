@@ -6,7 +6,7 @@ namespace Flashcards.Infrastructure.Database;
 public class FlashcardsDbContext(DbContextOptions<FlashcardsDbContext> options) : DbContext(options)
 {
     public DbSet<BoxModel> Boxes => Set<BoxModel>();
-    public DbSet<FlashcardModel> Cards => Set<FlashcardModel>();
+    public DbSet<CardModel> Cards => Set<CardModel>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -15,7 +15,7 @@ public class FlashcardsDbContext(DbContextOptions<FlashcardsDbContext> options) 
             b.Property(x => x.Name).HasMaxLength(100).IsRequired();
             b.HasIndex(x => x.UserId);
         });
-        modelBuilder.Entity<FlashcardModel>(f =>
+        modelBuilder.Entity<CardModel>(f =>
         {
             f.Property(x => x.Question).HasMaxLength(500).IsRequired();
             f.Property(x => x.Answer).HasMaxLength(500).IsRequired();

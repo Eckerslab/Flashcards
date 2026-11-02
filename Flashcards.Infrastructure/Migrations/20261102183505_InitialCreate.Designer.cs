@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Flashcards.Infrastructure.Migrations
 {
     [DbContext(typeof(FlashcardsDbContext))]
-    [Migration("20261025151522_InitialCreate")]
+    [Migration("20261102183505_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -47,7 +47,7 @@ namespace Flashcards.Infrastructure.Migrations
                     b.ToTable("Boxes");
                 });
 
-            modelBuilder.Entity("Flashcards.Domain.Model.FlashcardModel", b =>
+            modelBuilder.Entity("Flashcards.Domain.Model.CardModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -85,7 +85,7 @@ namespace Flashcards.Infrastructure.Migrations
                     b.ToTable("Cards");
                 });
 
-            modelBuilder.Entity("Flashcards.Domain.Model.FlashcardModel", b =>
+            modelBuilder.Entity("Flashcards.Domain.Model.CardModel", b =>
                 {
                     b.HasOne("Flashcards.Domain.Model.BoxModel", null)
                         .WithMany()
