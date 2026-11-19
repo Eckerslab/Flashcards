@@ -40,8 +40,6 @@ internal class CardRepository(FlashcardsDbContext dbContext) : ICardRepository
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     public async Task UpdateAsync(CardModel value, CancellationToken cancellationToken = default)
     {
-        // Im selben Request per GetAsync geladen: Change Tracking erkennt die geänderten Felder.
-        // Update() nur für nicht getrackte Entitäten (z. B. von außen übergeben).
         if (dbContext.Entry(value).State == EntityState.Detached)
             dbContext.Cards.Update(value);
 
