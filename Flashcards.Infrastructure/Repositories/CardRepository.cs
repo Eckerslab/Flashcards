@@ -1,45 +1,61 @@
-﻿using Flashcards.Domain.Model;
+﻿using Flashcards.Application.Abstractions;
+using Flashcards.Domain.Model;
 using Flashcards.Infrastructure.Database;
-using Flashcards.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Flashcards.Infrastructure.Repositories;
 
-internal class CardRepository : ICardRepository
+/// <summary>
+///     Provides Entity Framework Core based persistence for <see cref="CardModel" /> entities.
+/// </summary>
+/// <param name="dbContext">The request-scoped database context.</param>
+internal class CardRepository(FlashcardsDbContext dbContext) : ICardRepository
 {
-    private readonly IDbContextFactory<FlashcardsDbContext> _contextFactory;
-
-    public CardRepository(IDbContextFactory<FlashcardsDbContext> contextFactory)
+    /// <summary>
+    /// Adds a new card to the database and saves the changes.
+    /// </summary>
+    /// <param name="value">The card to add.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    public async Task AddAsync(CardModel value, CancellationToken cancellationToken = default)
     {
-        _contextFactory = contextFactory;
+        dbContext.Cards.Add(value);
+        await dbContext.SaveChangesAsync(cancellationToken);
     }
 
-
-    public async Task Add(CardModel value)
+    /// <summary>
+    /// Removes a card from the database and saves the changes.
+    /// </summary>
+    /// <param name="value">The card to delete.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    public async Task DeleteAsync(CardModel value, CancellationToken cancellationToken = default)
     {
-        var dbContext = await _contextFactory.CreateDbContextAsync();
-        await dbContext.Cards.AddAsync(value);
-        await dbContext.SaveChangesAsync();
-    }
-
-    public async Task Delete(CardModel value)
-    {
-        var dbContext = await _contextFactory.CreateDbContextAsync();
         dbContext.Cards.Remove(value);
-        await dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task Update(CardModel value)
+    /// <summary>
+    /// Saves the changes made to a card. A card that is not tracked by the context is attached and marked as modified.
+    /// </summary>
+    /// <param name="value">The card to update.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    public async Task UpdateAsync(CardModel value, CancellationToken cancellationToken = default)
     {
-        var dbContext = await _contextFactory.CreateDbContextAsync();
-        dbContext.Cards.Update(value);
-        await dbContext.SaveChangesAsync();
+        // Im selben Request per GetAsync geladen: Change Tracking erkennt die geänderten Felder.
+        // Update() nur für nicht getrackte Entitäten (z. B. von außen übergeben).
+        if (dbContext.Entry(value).State == EntityState.Detached)
+            dbContext.Cards.Update(value);
+
+        await dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<CardModel> Get(int id)
+    /// <summary>
+    /// Gets a card by its unique identifier.
+    /// </summary>
+    /// <param name="id">The unique identifier of the card.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>The card, or <c>null</c> if no card with this identifier exists.</returns>
+    public async Task<CardModel?> GetAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        var dbContext = await _contextFactory.CreateDbContextAsync();
-        CardModel? cards = await dbContext.Cards.FindAsync(id);
-        return cards ?? throw new InvalidOperationException("Card not found");
+        return await dbContext.Cards.FindAsync([id], cancellationToken);
     }
 }
