@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-builder.Services.AddInfrastructure(builder.Configuration.GetConnectionString("Default")!);
+builder.Services.AddInfrastructure(builder.Configuration.GetConnectionString("Default") ?? throw new Exception("Database not found")) ;
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
