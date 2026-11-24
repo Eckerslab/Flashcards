@@ -5,6 +5,14 @@
 /// </summary>
 public class CardModel : BaseModel
 {
+    public CardModel(Guid boxId, string question, string answer)
+    {
+        BoxId = boxId;
+        Question = question;
+        Answer = answer;
+        Level = 0;
+        DueDate = DateOnly.FromDateTime(DateTime.Now);
+    }
     /// <summary>
     /// Gets or sets the identifier of the box the card belongs to.
     /// </summary>
@@ -13,12 +21,12 @@ public class CardModel : BaseModel
     /// <summary>
     /// Gets or sets the question shown on the front of the card.
     /// </summary>
-    public string Question { get; set; } = string.Empty;
+    public string Question { get; private set; }
 
     /// <summary>
     /// Gets or sets the answer shown on the back of the card.
     /// </summary>
-    public string Answer { get; set; } = string.Empty;
+    public string Answer { get; private set; }
 
     /// <summary>
     /// Gets or sets the learning level of the card, which determines how often it is repeated.
@@ -39,4 +47,16 @@ public class CardModel : BaseModel
     /// Gets or sets whether the last answer was correct, or <c>null</c> if the card has never been answered.
     /// </summary>
     public bool? LastAnswerWasCorrect { get; set; }
+
+    /// <summary>
+    /// Records the answer to the card.
+    /// </summary>
+    /// <param name="isCorrect">Indicates whether the answer was correct.</param>
+    /// <param name="today">The date when the answer was recorded.</param>
+    public void RecordAnswer(bool isCorrect, DateOnly today)
+    {
+        LastAnsweredOn = today;
+        LastAnswerWasCorrect = isCorrect;
+        Level = isCorrect ? Level + 1 : 0;
+    }
 }
