@@ -70,14 +70,19 @@ public class CardModel : BaseModel
         LastAnsweredOn = today;
         LastAnswerWasCorrect = isCorrect;
         if (!IsDueDateToday(today)) return;
-        if (isCorrect && Level < 6)
+        switch (isCorrect)
         {
-            Level = Level + 1;
-            DueDate = today.AddDays(LevelIntervals[Level]);
-        }
-        else
-        {
-            Level = 0;
+            case true when Level < 6:
+                Level = Level + 1;
+                DueDate = today.AddDays(LevelIntervals[Level]);
+                break;
+            case true when Level == 6:
+                Level = 6;
+                DueDate = today.AddDays(LevelIntervals[Level]);
+                break;
+            default:
+                Level = 0;
+                break;
         }
     }
     private  bool IsDueDateToday(DateOnly today)
@@ -87,5 +92,5 @@ public class CardModel : BaseModel
     /// <summary>
     /// Intervals, in days, that determine the available flashcard review levels.
     /// </summary>
-    private static readonly List<int> LevelIntervals = [1, 3, 5, 7, 14, 21];
+    private static readonly List<int> LevelIntervals = [0, 1, 3, 5, 7, 14, 21];
 }
